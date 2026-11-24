@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>视频分类</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800">
+<div class="max-w-5xl mx-auto px-4 py-8">
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold">视频分类</h1>
+  </header>
+  <main id="content" class="space-y-10"></main>
+</div>
+<script>
+const groups = [
+  { name: "铁道少女动画相关", videos: [
+    { id: "yiB65S9QYfM", title: "【てつりょー！×鉄道むすめ】課外活動～遠州鉄道編～（CV：春立うさ）", uploader: "鉄道むすめ公式", length: "2:13" },
+    { id: "J4TrrAFCtw4", title: "【てつりょー！meet with 鉄道むすめ】八神 牛緒の鉄道会社紹介 伊豆箱根鉄道編", uploader: "鉄道むすめ【公式】", length: "1:24" }
+  ]},
+  { name: "白森さわ/都子前世相关", videos: [
+    { id: "IPxxTOngM5o", title: "白森サワ・甲斐真理野 卒業報告 緊急放送", uploader: "つくドル！公式チャンネル", length: "30:13" },
+    { id: "_zFctbCbaM4", title: "「松井恵理子・内村史子のまイラぶすとりーと」第15回（2015.10.16）", uploader: "pixiv", length: "26:40" },
+    { id: "dSs2Rmy-0q4", title: "【経済BUZZ】ロゴを作ってもらいました！", uploader: "池ヶ谷通", length: "5:43" },
+    { id: "V8GIc5JLCeM", title: "【経済BUZZ】超人気女子高生イラストレーター白森さわさん", uploader: "テレビ東京 経済報道チャンネル", length: "9:30" },
+    { id: "dkyXkMHlkvc", title: "【ASMR】3D dummy head mic👂🏻耳マッサージと耳タッピング【TKM ASMR × さわらコラボ】", uploader: "さわら - Sawara ASMR -", length: "26:28" }
+  ]}
+];
+const esc = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+document.getElementById("content").innerHTML = groups.map(g => `
+  <section>
+    <h2 class="text-xl font-semibold mb-4 pb-2 border-b border-slate-300">${esc(g.name)} <span class="text-sm font-normal text-slate-500">（${g.videos.length} 个）</span></h2>
+    <div class="grid gap-5 sm:grid-cols-2">
+      ${g.videos.map(v => `
+        <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener"
+           class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col">
+          <div class="relative">
+            <img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="${esc(v.title)}" class="w-full aspect-video object-cover">
+            <span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-0.5 rounded">${v.length}</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-medium leading-snug">${esc(v.title)}</h3>
+            <p class="text-sm text-slate-500 mt-2">上传者：${esc(v.uploader)}</p>
+            <p class="text-sm text-slate-500">时长：${v.length}</p>
+          </div>
+        </a>`).join("")}
+    </div>
+  </section>`).join("");
+</script>
+</body>
+</html>
